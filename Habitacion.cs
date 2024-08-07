@@ -25,8 +25,8 @@ namespace LABNUMERO2
         public void MostrarInformacion()
         {
             Console.WriteLine($"Número de Habitación: {NumeroHabitacion}");
-            Console.WriteLine($"Precio por noche: Q");
-            Console.WriteLine($"Disponibilidad: ");
+            Console.WriteLine($"Precio por noche: Q{PrecioPorNoche}");
+            Console.WriteLine($"Disponibilidad: {Disponibilidad}");
             Console.WriteLine($"Nombre de Cliente : {NombreCliente}");
         }
         public bool CambiarDisponibilidad(bool disponibilidad)
