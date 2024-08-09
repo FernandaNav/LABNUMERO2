@@ -7,8 +7,8 @@ class program
     {
         int opcion = 0, opcionHabitacion = 0;
         bool disponibilidad = false, validarPrecio = false; string nombreCliente = ""; double precioPorNoche = 1;
+        Mensajes mensajes = new Mensajes();
         List<Habitacion> listaHabitaciones = new List<Habitacion>();
-        Habitacion nuevaHabitacion = new Habitacion(precioPorNoche,disponibilidad,nombreCliente);
         do
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -20,7 +20,8 @@ class program
             Console.WriteLine("Opción 2: Eliminar Habitación");
             Console.WriteLine("Opción 3: Mostrar Habitación");
             Console.WriteLine("Opción 4: Liberar Habitación");
-            Console.WriteLine("Opción 5: Salir");
+            Console.WriteLine("Opción 5: Asignar Habitación");
+            Console.WriteLine("Opción 6: Salir");
             Console.WriteLine(); Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Ingresa el no. de opción: "); Console.ResetColor();
             try
@@ -71,7 +72,7 @@ class program
                                         }
                                         catch (FormatException)
                                         {
-                                            nuevaHabitacion.MensajeError();
+                                            mensajes.MensajeError();
                                         }
                                     } while (validarPrecio == false);
                                     Console.Write("¿Está disponible? (Si/No): ");
@@ -110,7 +111,7 @@ class program
                                                 }
                                                 catch (FormatException)
                                                 {
-                                                    nuevaHabitacion.MensajeError();
+                                                    mensajes.MensajeError();
                                                 }
                                             } while (validaNumero1 == false);
                                             break;
@@ -153,7 +154,7 @@ class program
                                                 }
                                                 catch (FormatException)
                                                 {
-                                                    nuevaHabitacion.MensajeError();
+                                                    mensajes.MensajeError();
                                                 }
                                             } while (validarNumero2 == false);
                                             break;
@@ -173,10 +174,10 @@ class program
                             }
                             catch (FormatException)
                             {
-                                nuevaHabitacion.MensajeError();
+                                mensajes.MensajeError();
                             }
                         } while (accionCompletada==false);
-                        nuevaHabitacion.MensajeContinuar();
+                        mensajes.MensajeContinuar();
                         break;
                     case 2:
                         Console.Clear(); bool habitacionEncontrada=false;
@@ -199,7 +200,7 @@ class program
                         }
                         if (!habitacionEncontrada)
                             Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("Esta habitación no existe.");
-                        nuevaHabitacion.MensajeContinuar();
+                        mensajes.MensajeContinuar();
                         break;
                     case 3:
                         Console.Clear();
@@ -212,7 +213,7 @@ class program
                             habitacion.MostrarInformacion();
                             Console.WriteLine();
                         }
-                        nuevaHabitacion.MensajeContinuar();
+                        mensajes.MensajeContinuar();
                         break;
                     case 4:
                         Console.Clear(); bool habitacionExistente = false;
@@ -235,9 +236,38 @@ class program
                         }
                         if (!habitacionExistente)
                             Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("Esta habitación no existe.");
-                        nuevaHabitacion.MensajeContinuar();
+                        mensajes.MensajeContinuar();
                         break;
                     case 5:
+                        Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("----------------------------");
+                        Console.WriteLine("     ASIGNAR HABITACION");
+                        Console.WriteLine("----------------------------");
+                        Console.ResetColor(); Console.WriteLine();
+                        Console.Write("Ingresa el número de habitación que quieres asignar: ");
+                        string numHabitacion3 = Console.ReadLine();
+                        int numero3 = Convert.ToInt32(numHabitacion3);
+                        foreach (var habitacion in listaHabitaciones)
+                        {
+                            if (numero3 == habitacion.NumeroHabitacion)
+                            {
+                                if (habitacion.Disponibilidad == true)
+                                {
+                                    Console.Write("Agrega el nombre del cliente: ");
+                                    string nombre = Console.ReadLine();
+                                    habitacion.AsignarHabitacion(nombre);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Esta habitación ya está asignada.");
+                                }
+                                break;
+                            }
+                        }
+                        mensajes.MensajeContinuar();
+                        break;
+                    case 6:
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("-----------------------------");
@@ -248,15 +278,15 @@ class program
                     default:
                         Console.ForegroundColor= ConsoleColor.Red;
                         Console.WriteLine("Esta opcion no existe. Intenta de nuevo...");
-                        nuevaHabitacion.MensajeContinuar();
+                        mensajes.MensajeContinuar();
                         break;
                 }
             }
             catch (FormatException)
             {
-                nuevaHabitacion.MensajeError();
-                nuevaHabitacion.MensajeContinuar();
+                mensajes.MensajeError();
+                mensajes.MensajeContinuar();
             }
-        } while (opcion != 5);
+        } while (opcion != 6);
     }
 }

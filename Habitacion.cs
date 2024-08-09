@@ -62,23 +62,17 @@ namespace LABNUMERO2
             return NombreCliente;
         }
 
+        public string AsignarHabitacion(string nombreCliente)
+        {
+            NombreCliente = nombreCliente;
+            Disponibilidad = false;
+            return NombreCliente;
+        }
+
         public string Liberar()
         {
             NombreCliente = "";
             return NombreCliente;
-        }
-
-        public void MensajeError()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("Error de formato. Intenta de nuevo...");
-            Console.ResetColor();
-        }
-        public void MensajeContinuar()
-        {
-            Console.ForegroundColor = ConsoleColor.DarkGray;
-            Console.Write("Pulsa cualquier tecla para continuar...");
-            Console.ResetColor(); Console.ReadKey(); Console.Clear();
         }
     }
 }
