@@ -9,6 +9,7 @@ namespace LABNUMERO2
 {
     public class Habitacion
     {
+        public static int contador = 0;
         public int NumeroHabitacion { get; set; }
         public double PrecioPorNoche { get; set; }
         public bool Disponibilidad { get; set; } 
@@ -16,7 +17,7 @@ namespace LABNUMERO2
 
         public Habitacion(double precioPorNoche, bool disponibilidad, string nombreCliente)
         {
-            NumeroHabitacion = 0;
+            NumeroHabitacion = contador++;
             PrecioPorNoche = precioPorNoche;
             Disponibilidad = disponibilidad;
             NombreCliente = nombreCliente;
@@ -24,10 +25,10 @@ namespace LABNUMERO2
 
         public virtual void MostrarInformacion()
         {
-            Console.WriteLine($"Número de Habitación: {NumeroHabitacion}");
+            Console.ResetColor(); Console.WriteLine($"Número de Habitación: {NumeroHabitacion}");
             Console.WriteLine($"Precio por noche: Q{PrecioPorNoche}");
             Console.WriteLine($"Disponibilidad: {Disponibilidad}");
-            Console.WriteLine($"Nombre de Cliente : {NombreCliente}");
+            Console.WriteLine($"Nombre de Cliente: {NombreCliente}");
         }
         public bool CambiarDisponibilidad(bool disponibilidad)
         {

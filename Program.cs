@@ -1,4 +1,5 @@
 ﻿using LABNUMERO2;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 class program
 {
@@ -45,7 +46,7 @@ class program
                             Console.Write("Ingresa el no. de opción: "); Console.ResetColor();
                             try
                             {
-                                bool disponibilidad, validarPrecio = false; string nombreCliente = ""; double precioPorNoche = 1;
+                                bool disponibilidad = false, validarPrecio = false; string nombreCliente = ""; double precioPorNoche = 1;
                                 opcionHabitacion = Convert.ToInt32(Console.ReadLine()); Console.WriteLine();
                                 if (opcionHabitacion == 5)
                                     Console.Clear();
@@ -78,11 +79,7 @@ class program
                                     {
                                         disponibilidad = true;
                                     }
-                                    else
-                                    {
-                                        disponibilidad = false;
-                                    }
-                                    if (disponibilidad = false)
+                                    if (disponibilidad == false)
                                     {
                                         Console.Write("Ingresa el nombre del cliente: ");
                                         nombreCliente = Console.ReadLine();
@@ -114,7 +111,6 @@ class program
                                                     nuevaHabitacion.MensajeError();
                                                 }
                                             } while (validaNumero1 == false);
-                                            nuevaHabitacion.MensajeContinuar();
                                             break;
                                         case 2:
                                             bool vistaAlMar = false;
@@ -126,7 +122,6 @@ class program
                                             }
                                             HabitacionDoble nuevaHabitacionDoble = new HabitacionDoble(precioPorNoche, disponibilidad, nombreCliente, vistaAlMar);
                                             listaHabitaciones.Add(nuevaHabitacionDoble);
-                                            nuevaHabitacion.MensajeContinuar();
                                             break;
                                         case 3:
                                             int numeroHabitaciones = 0;
@@ -164,7 +159,6 @@ class program
                                             string extraServicio = Console.ReadLine();
                                             Deluxe nuevaDeluxe = new Deluxe(precioPorNoche, disponibilidad, nombreCliente,extraServicio);
                                             listaHabitaciones.Add(nuevaDeluxe);
-                                            nuevaHabitacion.MensajeContinuar();
                                             break;
                                         default:
                                             Console.ForegroundColor = ConsoleColor.Red;
@@ -182,13 +176,27 @@ class program
                         } while (opcionHabitacion != 5);
                         break;
                     case 2:
-                        Console.Clear();
+                        Console.Clear(); bool habitacionEncontrada=false;
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("----------------------------");
                         Console.WriteLine("     ELIMINAR HABITACIÓN");
                         Console.WriteLine("----------------------------");
                         Console.ResetColor(); Console.WriteLine();
-
+                        Console.Write("Ingresa el número de habitación que quieres eliminar: ");
+                        string numHabitacion = Console.ReadLine();
+                        int numero = Convert.ToInt32(numHabitacion);
+                        for (int i = 0; i < listaHabitaciones.Count; i++)
+                        {
+                            if (listaHabitaciones[i].NumeroHabitacion == numero)
+                            {
+                                listaHabitaciones.RemoveAt(i);
+                                i--;
+                                habitacionEncontrada = true;
+                                break;
+                            }
+                        }
+                        if (!habitacionEncontrada)
+                            Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("Esta habitación no existe.");
                         nuevaHabitacion.MensajeContinuar();
                         break;
                     case 3:
@@ -197,7 +205,11 @@ class program
                         Console.WriteLine("----------------------------");
                         Console.WriteLine("     MOSTRAR HABITACIÓN");
                         Console.WriteLine("----------------------------");
-                        Console.ResetColor(); Console.WriteLine();
+                        foreach(var habitacion in listaHabitaciones)
+                        {
+                            habitacion.MostrarInformacion();
+                            Console.WriteLine();
+                        }
                         nuevaHabitacion.MensajeContinuar();
                         break;
                     case 4:
