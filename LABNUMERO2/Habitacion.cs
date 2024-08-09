@@ -61,5 +61,18 @@ namespace LABNUMERO2
             NombreCliente = "";
             return NombreCliente;
         }
+
+        public void MensajeError()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Error de formato. Intenta de nuevo...");
+            Console.ResetColor();
+        }
+        public void MensajeContinuar()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write("Pulsa cualquier tecla para continuar...");
+            Console.ResetColor(); Console.ReadKey(); Console.Clear();
+        }
     }
 }
