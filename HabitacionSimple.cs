@@ -14,5 +14,11 @@ namespace LABNUMERO2
         {
             NumeroDeCamas = numeroDeCamas;
         }
+
+        public override void MostrarInformacion()
+        {
+            base.MostrarInformacion(); //esto es para mostrar los atributos que vienen desde la super clase
+            Console.WriteLine($"Número de camas: {NumeroDeCamas}");
+        }
     }
 }

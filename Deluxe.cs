@@ -14,6 +14,11 @@ namespace LABNUMERO2
         {
             ServiciosExtras = serviciosExtras;
         }
+        public override void MostrarInformacion()
+        {
+            base.MostrarInformacion(); //esto es para mostrar los atributos que vienen desde la super clase
+            Console.WriteLine($"Servicio extra: {ServiciosExtras}");
+        }
 
     }
 }

@@ -16,5 +16,10 @@ namespace LABNUMERO2
             NumeroDeHabitaciones = numeroDeHabitaciones;
             TieneJacuzzi = tieneJacuzzi;
         }
+        public override void MostrarInformacion()
+        {
+            base.MostrarInformacion(); //esto es para mostrar los atributos que vienen desde la super clase
+            Console.WriteLine($"Número de habitaciones: {NumeroDeHabitaciones}");
+        }
     }
 }

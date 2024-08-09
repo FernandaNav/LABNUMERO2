@@ -22,7 +22,7 @@ namespace LABNUMERO2
             NombreCliente = nombreCliente;
         }
 
-        public void MostrarInformacion()
+        public virtual void MostrarInformacion()
         {
             Console.WriteLine($"Número de Habitación: {NumeroHabitacion}");
             Console.WriteLine($"Precio por noche: Q{PrecioPorNoche}");

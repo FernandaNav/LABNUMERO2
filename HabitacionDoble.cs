@@ -14,5 +14,10 @@ namespace LABNUMERO2
         {
             VistaAlMar = vistaAlMar;
         }
+        public override void MostrarInformacion()
+        {
+            base.MostrarInformacion(); //esto es para mostrar los atributos que vienen desde la super clase
+            Console.WriteLine($"¿Tiene vista al mar? (true/si;false/no): {VistaAlMar}");
+        }
     }
 }
