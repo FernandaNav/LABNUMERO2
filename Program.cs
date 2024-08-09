@@ -72,7 +72,7 @@ class program
                                             nuevaHabitacion.MensajeError();
                                         }
                                     } while (validarPrecio == false);
-                                    Console.Write("¿Está disponible? (true/false): ");
+                                    Console.Write("¿Está disponible? (Si/No): ");
                                     string disponible = Console.ReadLine();
                                     if (disponible.ToLower() == "si")
                                     {
@@ -160,6 +160,10 @@ class program
                                             nuevaHabitacion.MensajeContinuar();
                                             break;
                                         case 4:
+                                            Console.Write("Ingresa el servicio extra: ");
+                                            string extraServicio = Console.ReadLine();
+                                            Deluxe nuevaDeluxe = new Deluxe(precioPorNoche, disponibilidad, nombreCliente,extraServicio);
+                                            listaHabitaciones.Add(nuevaDeluxe);
                                             nuevaHabitacion.MensajeContinuar();
                                             break;
                                         default:
@@ -184,6 +188,7 @@ class program
                         Console.WriteLine("     ELIMINAR HABITACIÓN");
                         Console.WriteLine("----------------------------");
                         Console.ResetColor(); Console.WriteLine();
+
                         nuevaHabitacion.MensajeContinuar();
                         break;
                     case 3:
