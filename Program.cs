@@ -4,7 +4,7 @@ class program
 {
     static void Main(string[] args)
     {
-        int opcion = 0, opcionHabitacion = 0;
+        int opcion = 0, opcionHabitacion = 0; ;
         List<Habitacion> listaHabitaciones = new List<Habitacion>();
         Habitacion nuevaHabitacion = new Habitacion(0, true, "");
         do
@@ -45,43 +45,132 @@ class program
                             Console.Write("Ingresa el no. de opción: "); Console.ResetColor();
                             try
                             {
-                                opcionHabitacion = Convert.ToInt32(Console.ReadLine());
-                                Console.Write("Ingresa el precio por noche: ");
-                                double precioPorNoche = Convert.ToDouble(Console.ReadLine());
-                                Console.Write("¿Está disponible? (true/false): ");
-                                bool disponibilidad = Convert.ToBoolean(Console.ReadLine());
-                                string nombreCliente = "";
-                                if (disponibilidad = false) 
+                                bool disponibilidad, validarPrecio = false; string nombreCliente = ""; double precioPorNoche = 1;
+                                opcionHabitacion = Convert.ToInt32(Console.ReadLine()); Console.WriteLine();
+                                if (opcionHabitacion == 5)
+                                    Console.Clear();
+                                if (opcionHabitacion == 1 || opcionHabitacion == 2 || opcionHabitacion == 3 || opcionHabitacion == 4)
                                 {
-                                    Console.Write("Ingresa el nombre del cliente: ");
-                                    nombreCliente = Console.ReadLine();
+                                    Console.WriteLine("---------------------------------");
+                                    do
+                                    {
+                                        Console.Write("Ingresa el precio por noche: Q");
+                                        try
+                                        {
+                                            precioPorNoche = Convert.ToDouble(Console.ReadLine());
+                                            if (precioPorNoche <= 0)
+                                            {
+                                                Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("El precio no puede ser menor o igual a 0.");
+                                            }
+                                            else
+                                            {
+                                                validarPrecio = true;
+                                            }
+                                        }
+                                        catch (FormatException)
+                                        {
+                                            nuevaHabitacion.MensajeError();
+                                        }
+                                    } while (validarPrecio == false);
+                                    Console.Write("¿Está disponible? (true/false): ");
+                                    string disponible = Console.ReadLine();
+                                    if (disponible.ToLower() == "si")
+                                    {
+                                        disponibilidad = true;
+                                    }
+                                    else
+                                    {
+                                        disponibilidad = false;
+                                    }
+                                    if (disponibilidad = false)
+                                    {
+                                        Console.Write("Ingresa el nombre del cliente: ");
+                                        nombreCliente = Console.ReadLine();
+                                    }
+                                    switch (opcionHabitacion)
+                                    {
+                                        case 1:
+                                            int numeroDeCamas = 0;
+                                            bool validaNumero1 = false;
+                                            do
+                                            {
+                                                Console.Write("Ingresa el número de camas: ");
+                                                try
+                                                {
+                                                    numeroDeCamas = Convert.ToInt32(Console.ReadLine());
+                                                    if (numeroDeCamas <= 0)
+                                                    {
+                                                        Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("El numero de camas no puede ser menor o igual a 0.");
+                                                    }
+                                                    else
+                                                    {
+                                                        validaNumero1 = true;
+                                                        HabitacionSimple nuevaHabitacionSimple = new HabitacionSimple(precioPorNoche, disponibilidad, nombreCliente, numeroDeCamas);
+                                                        listaHabitaciones.Add(nuevaHabitacionSimple);
+                                                    }
+                                                }
+                                                catch (FormatException)
+                                                {
+                                                    nuevaHabitacion.MensajeError();
+                                                }
+                                            } while (validaNumero1 == false);
+                                            nuevaHabitacion.MensajeContinuar();
+                                            break;
+                                        case 2:
+                                            bool vistaAlMar = false;
+                                            Console.Write("¿La habitación tiene vista al mar (SI/NO)?: ");
+                                            string siNo = Console.ReadLine();
+                                            if (siNo.ToLower() == "si")
+                                            {
+                                                vistaAlMar = true;
+                                            }
+                                            HabitacionDoble nuevaHabitacionDoble = new HabitacionDoble(precioPorNoche, disponibilidad, nombreCliente, vistaAlMar);
+                                            listaHabitaciones.Add(nuevaHabitacionDoble);
+                                            nuevaHabitacion.MensajeContinuar();
+                                            break;
+                                        case 3:
+                                            int numeroHabitaciones = 0;
+                                            bool validarNumero2 = false, jacuzzi = false;
+                                            do
+                                            {
+                                                Console.ResetColor(); Console.Write("Ingresa el número de habitaciones: ");
+                                                try
+                                                {
+                                                    numeroHabitaciones = Convert.ToInt32(Console.ReadLine());
+                                                    if (numeroHabitaciones <= 0)
+                                                    {
+                                                        Console.ForegroundColor = ConsoleColor.Red; Console.WriteLine("El numero de habitaciones no puede ser menor o igual a 0.");
+                                                    }
+                                                    else
+                                                    {
+                                                        validarNumero2 = true;
+                                                        Console.Write("¿La habitación tiene jacuzzi (SI/NO)?: ");
+                                                        string siONo = Console.ReadLine();
+                                                        if (siONo.ToLower() == "si")
+                                                            jacuzzi = true;
+                                                        Suite nuevaSuite = new Suite(precioPorNoche, disponibilidad, nombreCliente, numeroHabitaciones, jacuzzi);
+                                                        listaHabitaciones.Add(nuevaSuite);
+                                                    }
+                                                }
+                                                catch (FormatException)
+                                                {
+                                                    nuevaHabitacion.MensajeError();
+                                                }
+                                            } while (validarNumero2 == false);
+                                            nuevaHabitacion.MensajeContinuar();
+                                            break;
+                                        case 4:
+                                            nuevaHabitacion.MensajeContinuar();
+                                            break;
+                                        default:
+                                            Console.ForegroundColor = ConsoleColor.Red;
+                                            Console.WriteLine("Esta opcion no existe. Intenta de nuevo...");
+                                            nuevaHabitacion.MensajeContinuar();
+                                            break;
+                                    }
                                 }
-                                switch (opcionHabitacion)
-                                {
-                                    case 1:
-                                        Console.Write("Ingresa el número de camas: ");
-                                        int numeroDeCamas = Convert.ToInt32(Console.ReadLine());
-                                        HabitacionSimple nuevaHabitacionSimple = new HabitacionSimple(precioPorNoche, disponibilidad, nombreCliente, numeroDeCamas);
-                                        listaHabitaciones.Add(nuevaHabitacionSimple);
-                                        nuevaHabitacion.MensajeContinuar();
-                                        break;
-                                    case 2:
-                                        Console.Write("Ingresa ")
-                                        nuevaHabitacion.MensajeContinuar();
-                                        break;
-                                    case 3:
-                                        nuevaHabitacion.MensajeContinuar();
-                                        break;
-                                    case 4:
-                                        nuevaHabitacion.MensajeContinuar();
-                                        break;
-                                    default:
-                                        Console.ForegroundColor = ConsoleColor.Red;
-                                        Console.WriteLine("Esta opcion no existe. Intenta de nuevo...");
-                                        nuevaHabitacion.MensajeContinuar();
-                                        break;
-                                }
-                            }catch(FormatException)
+                            }
+                            catch (FormatException)
                             {
                                 nuevaHabitacion.MensajeError();
                                 nuevaHabitacion.MensajeContinuar();
