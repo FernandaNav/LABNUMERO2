@@ -30,24 +30,29 @@ namespace LABNUMERO2
             Console.WriteLine($"Disponibilidad: {Disponibilidad}");
             Console.WriteLine($"Nombre de Cliente: {NombreCliente}");
         }
-        public bool CambiarDisponibilidad(bool disponibilidad)
+        public void CambiarDisponibilidad(bool disponible)
         {
-            if(disponibilidad = true)
+            if (Disponibilidad == disponible)
             {
-                Console.WriteLine("La habitación está disponible.");
-                Console.WriteLine("Presine ENTER para cambiar disponibilidad");
-                Console.ReadKey(); Console.Clear(); disponibilidad = false;
-                Console.WriteLine("La habitación ya no está disponible");
-                AsignarCliente();
-            }else if (disponibilidad = false)
-            {
-                Console.WriteLine("La habitación no está disponible.");
-                Console.WriteLine("Presine ENTER para cambiar disponibilidad");
-                Console.ReadKey(); Console.Clear(); disponibilidad = true;
-                Console.WriteLine("La habitación ya no está disponible");
-                Liberar();
+                Console.WriteLine("La habitación ya está en el estado deseado.");
             }
-            return disponibilidad;
+            else
+            {
+                Disponibilidad = disponible;
+                if (Disponibilidad)
+                {
+                    Liberar();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("La habitación ahora está disponible.");
+                }
+                else
+                {
+                    AsignarCliente();
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("La habitación ha sido asignada.");
+                }
+                Console.ResetColor();
+            }
         }
 
         public string AsignarCliente()
